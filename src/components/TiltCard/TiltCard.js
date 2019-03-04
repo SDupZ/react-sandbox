@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './styles.css';
+import css from './TiltCard.module.css';
 
 const X_ROTATION_FACTOR = 0.1;
 const Y_ROTATION_FACTOR = -0.1;
@@ -48,12 +48,12 @@ export default class TiltCard extends React.Component {
     return (
       <div
         ref={this.containerRef}
-        className="container"
+        className={css.container}
         onMouseMove={this.handleMouseMove}
         onMouseLeave={this.handleMouseLeave}
         style={{ transform: `perspective(50em) rotateX(${xRotation}deg) rotateY(${yRotation}deg)  scale(${scaleFactor})` }}
       >
-        <div className="imageContainer" />
+        <div className={css.imageContainer} />
       </div>
     );
   }
