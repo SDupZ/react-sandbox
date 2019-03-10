@@ -8,11 +8,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          {/* <TiltCard /> */}
-          <ParticleOne />
-          {/* <AnotherClass /> */}
-        </header>
+        {/* <TiltCard /> */}
+        <ParticleOne />
+        {/* <AnotherClass /> */}
       </div>
     );
   }

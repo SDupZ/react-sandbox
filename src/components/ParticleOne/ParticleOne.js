@@ -1,16 +1,18 @@
 import React from 'react';
+import classnames from 'classnames';
 import html2canvas from 'html2canvas';
 
 import ExplodingParticle from './ExplodingParticle';
 import css from './ParticleOne.module.css';
+import ResetButton from '../ResetButton';
+
+const reductionFactor = 17;
 
 export default class ParticleOne extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      particles: []
-    };
+    this.state = ParticleOne.initialState;
 
     this.buttonRef = React.createRef();
     this.containerRef = React.createRef();
@@ -22,6 +24,17 @@ export default class ParticleOne extends React.Component {
     this.createParticleAtPoint = this.createParticleAtPoint.bind(this);
     this.update = this.update.bind(this);
     this.resizeCanvas = this.resizeCanvas.bind(this);
+    this.explode = this.explode.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  static initialState = {
+    particles: [],
+    buttonHidden: false,
+  };
+
+  reset() {
+    this.setState(ParticleOne.initialState)
   }
 
   getCanvas() {
@@ -52,6 +65,35 @@ export default class ParticleOne extends React.Component {
     // Create a particle using the color we obtained at the window location
     // that we calculated
     this.createParticleAtPoint(globalX, globalY, rgbaColorArr);
+  }
+
+  explode(e) {
+    this.setState({ buttonHidden: true });
+    // Get the color data for our button
+    let width = this.buttonRef.current.offsetWidth;
+    let height = this.buttonRef.current.offsetHeight
+    let colorData = this.ctx.getImageData(0, 0, width, height).data;
+
+    // Keep track of how many times we've iterated (in order to reduce
+    // the total number of particles create)
+    let count = 0;
+
+    // Go through every location of our button and create a particle
+    for (let localX = 0; localX < width; localX++) {
+      for (let localY = 0; localY < height; localY++) {
+        if (count % reductionFactor === 0) {
+          let index = (localY * width + localX) * 4;
+          let rgbaColorArr = colorData.slice(index, index + 4);
+
+          let bcr = this.buttonRef.current.getBoundingClientRect();
+          let globalX = bcr.left + localX;
+          let globalY = bcr.top + localY;
+
+          this.createParticleAtPoint(globalX, globalY, rgbaColorArr);
+        }
+        count++;
+      }
+    }
   }
 
   resizeCanvas() {
@@ -111,16 +153,16 @@ export default class ParticleOne extends React.Component {
   }
 
   render() {
+    const { buttonHidden } = this.state;
     return (
       <div className={css.container} ref={this.containerRef}>
         <button
-          onClick={this.getColorAtPoint}
-          className={css.buttonOne}
+          onClick={this.explode}
+          className={classnames(css.buttonOne, buttonHidden ? css.hideButton : '')}
           ref={this.buttonRef}
-        >
-          Hello World
-        </button>
+        />
         <canvas className={css.canvas} ref={this.canvasRef} />
+        <ResetButton onClick={this.reset} />
       </div>
     );
   }
