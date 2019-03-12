@@ -24,6 +24,7 @@
   background: linear-gradient(to right, #ee0979, #ff6a00);
   
   vertical-align: top;
+  border-radius: 100px;
 
   cursor: pointer;
 }
