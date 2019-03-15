@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AnotherClass from './components/AnotherClass';
-import TiltCard from './components/TiltCard';
-import ParticleOne from './components/ParticleOne';
+import AnotherClass from '../../components/AnotherClass';
+import TiltCard from '../../components/TiltCard';
+import ParticleOne from '../../components/ParticleOne';
 import './App.css';
 
 class App extends Component {

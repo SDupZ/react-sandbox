@@ -1,0 +1,68 @@
+.wrapper {
+  display: grid;
+  width: 100%;
+  background-color: #fff;
+  color: #444;
+  
+  grid-template-areas:
+    "header logo"
+    "hero hero"
+    "contentBox1 contentBox1"
+    "contentBox2 contentBox2";
+
+  grid-gap: 10px;
+}
+
+@media only screen and (min-width: 500px) {
+  .wrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "header header header logo"
+      "hero hero contentBox1 contentBox1"
+      "hero hero contentBox2 contentBox2";
+  }
+}
+
+.box {
+  border: solid #444;
+  color: #444;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+.a {
+  grid-area: header;
+}
+
+.b {
+  grid-area: logo;
+}
+
+.hero {
+  grid-area: hero;
+
+  display: flex;
+  place-content: center;
+}
+
+.d {
+  grid-area: contentBox1;
+}
+
+.e {
+  grid-area: contentBox2;
+}
+
+
+.heroSection {
+  max-width: 500px;
+  max-height: 500px;
+  flex: 1;
+}
+
+.heroImage {
+  border-radius: 100%;
+  background-size: cover;
+  padding-bottom: 100%;
+}
