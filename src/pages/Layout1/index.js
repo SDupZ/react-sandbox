@@ -13,11 +13,16 @@ export default function() {
       <div className={classnames(css.box, css.b)}>B</div>
       <div className={classnames(css.box, css.hero)}>
         <div className={css.heroSection}>
-          <div className={css.heroImage} style={{ backgroundImage: `linear-gradient(to top right, rgba(33,33,33, 0.6), rgba(0, 0, 0, 0.8)), url(${imageURL})` }} />
+          <div
+            className={css.heroImage}
+            style={{
+              backgroundImage: `linear-gradient(to top right, rgba(33,33,33, 0.6), rgba(0, 0, 0, 0.8)), url(${imageURL})`
+            }}
+          />
         </div>
       </div>
       <div className={classnames(css.box, css.d)}>{data.text}</div>
-      <div className={classnames(css.box, css.e)}>E</div>
+      <div className={classnames(css.box, css.e)}>{data.text}</div>
     </div>
   );
 }
