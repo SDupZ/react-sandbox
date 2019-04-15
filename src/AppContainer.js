@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout1 from './pages/Layout1';
+import Layout1 from './pages/App/App';
 
 
 export default function AppContainer() {
